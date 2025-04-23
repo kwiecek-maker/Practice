@@ -55,12 +55,13 @@ def display_hist_line_plot(subdists: tuple, nbins):
     plt.show()
 
 
-def display_central_tendency(dist, nbins, outliers=False):
+def display_central_tendency(dist, nbins, outliers=None):
     x, y = calc_hist(dist, nbins)
     if outliers:
-        dist = np.append(dist, [10000, 20000])
-        x = np.append(x, [10000, 20000])
+        dist = np.append(dist, outliers)
+        x = np.append(x, outliers)
         y = np.append(y, [1, 1])
+
     mean = np.round(np.mean(dist), 4)
     median = np.round(np.median(dist), 4)
     mode = x[np.argmax(y)]
@@ -100,8 +101,8 @@ if __name__ == "__main__":
     # compare distributions
     d6 = generate_gauss_dist(10000, shift=0, width=1)
     display_central_tendency(d6, nbins=50)
-    display_central_tendency(d6, nbins=50, outliers=True)
+    display_central_tendency(d6, nbins=50, outliers=[10000, 20000])
 
     d7 = generate_gauss_dist(20, shift=0, width=1)
     display_central_tendency(d7, nbins=20)
-    display_central_tendency(d7, nbins=20, outliers=True)
+    display_central_tendency(d7, nbins=20, outliers=[10000, 20000])
